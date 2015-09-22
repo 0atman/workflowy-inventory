@@ -1,0 +1,131 @@
+<!doctype html>
+<title>Index</title>
+<ul>
+{% for node in nodes %}
+  <li>{{ node.name }}</li>
+{% endfor %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Dashboard for NAME</title>
+
+    <!-- in your header -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/89f2f44ba07ea3fff7e561c2142813b278c2d6c6/devicon.min.css">
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard/dashboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Character Sheet for {{ github_user.name }}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://{{ github_user.blog }}">Blog</a></li>
+            <li><a href="mailto:{{ github_user.email }}">Email</a></li>
+            <li><a href="{{ github_user.html_url}}">View on Github</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><image src="{{ github_user.avatar_url}}" width=230 height=230></li>
+            <li class="active"><a>{{ github_user.login }} <span class="sr-only">(current)</span></a></li>
+
+            <li><a href="https://en.wikipedia.org/wiki/Special:Search?search={{ github_user.company }}">{{ github_user.company }}</a></li>
+            <li><a href="https://www.google.com/maps?hl=en&q={{ github_user.location }}">{{ github_user.location }}</a></li>
+            <li title="Gists" class="active"><a>Tools ({{ gists | length}})<span class="sr-only">(current)</span></a></li>
+            {% for gist in gists %}
+            <li><a title="{{ gist.description }}" href="{{ gist.html_url }}">{{ gist.files.keys.0 }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 title="Aggregate languages used across all repos" class="page-header">Skills</h1>
+
+          <div class="row placeholders">
+              {% for skill in skills %}
+            <div class="col-xs-6 col-sm-3 placeholder">
+                <!-- in your body -->
+                <h2><i class="devicon-{{ skill.font_name }}-plain"></i></h2>
+              <h4>{{ skill.name | upper }}</h4>
+              <span class="text-muted">{{ skill.level }}</span>
+            </div>
+            {% endfor %}
+          </div>
+
+          <h2 title="Repos" class="sub-header">Current Quests</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th title="Open Issues">Level</th>
+                  <th title="Languages used in repo">Skill Trained</th>
+                  <th title="Number of Forks">Party Size</th>
+                  <th title="Number of Watchers on Github">Reward</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for repo in repos %}
+                <tr>
+                  <td>{{ repo.name }}</td>
+                  <td>{{ repo.open_issues }}</td>
+                  <td>{{ repo.language }}</td>
+                  <td>{{ repo.forks }}</td>
+                  <td>{{ repo.watchers}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
