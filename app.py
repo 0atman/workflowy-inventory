@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 @app.route('/<share>')
-def hello(share=None):
+def hello(share="Ast9674jor"):
     wf = Workflowy(share)
     return render_template(
         'index-new.html',
