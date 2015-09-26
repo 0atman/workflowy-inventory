@@ -11,10 +11,11 @@ app = Flask(__name__)
 def hello(share=None):
     wf = Workflowy(share)
     return render_template(
-        'index.html',
+        'index-new.html',
         nodes=[c for c in wf.root if not c.completed_at],
         name=wf.root.name,
-        description=wf.root.description
+        description=wf.root.description,
+        github_user="0atman"
     )
 
 if __name__ == "__main__":
