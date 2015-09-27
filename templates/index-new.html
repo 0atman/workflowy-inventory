@@ -66,7 +66,11 @@
           </a>
           <ul>
             {% for child in node %}
-              <li>{{ child.name }}</li>
+              {% if child.description %}
+                <li><a href={{child.description}}>{{ child.name }}</a></li>
+              {% else %}
+                <li>{{ child.name }}</li>
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
