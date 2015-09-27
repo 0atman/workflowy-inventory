@@ -61,7 +61,7 @@
       <div class="row">
         {% for node in nodes %}
         <div class="col-md-4">
-          <a href="{{ node.description }}" role="button">
+          <a href="{{ node.description }}">
             <h2>{{ node.name }}</h2>
           </a>
           <ul>
@@ -70,6 +70,10 @@
             {% endfor %}
           </ul>
         </div>
+        {% if loop.index % 3 == 0 %}
+          </div>
+          <div class="row">
+        {% endif %}
         {% endfor %}
       </div>
       <hr>
